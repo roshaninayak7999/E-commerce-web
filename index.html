@@ -1,1 +1,798 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102d24">
+<title>ShopEase | Online Shopping & Booking</title>
+
+<style>
+:root {
+  --green: #102d24;
+  --lime: #d8fa78;
+  --cream: #f7f7f1;
+  --white: #fff;
+  --gray: #6e7771;
+  --border: #e4e7df;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--green);
+  line-height: 1.6;
+}
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+.container { width: min(1180px, 92%); margin: auto; }
+header {
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  gap: 18px;
+}
+.logo { font-size: 25px; font-weight: 900; letter-spacing: -1px; }
+.logo span { color: #729b2c; }
+.navlinks { display: flex; gap: 25px; align-items: center; }
+.navlinks a { font-size: 14px; font-weight: 700; }
+.navlinks a:hover { color: #71972c; }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 7px;
+  font-weight: 700;
+  transition: .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-dark { background: var(--green); color: white; }
+.btn-lime { background: var(--lime); color: var(--green); }
+.btn-light { background: white; color: var(--green); border: 1px solid var(--border); }
+.cart-btn { background: var(--lime); color: var(--green); }
+.menu-btn { display: none; }
+
+.hero { padding: 65px 0 55px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 40px;
+  align-items: center;
+}
+.pill {
+  display: inline-block;
+  background: #e8efdb;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.hero h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.04;
+  letter-spacing: -3px;
+  margin: 22px 0;
+}
+.hero h1 span { color: #749b30; }
+.hero p { color: var(--gray); max-width: 510px; margin-bottom: 25px; }
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-art {
+  min-height: 390px;
+  border-radius: 18px;
+  background: #e1edc8;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.art-top { display: flex; justify-content: space-between; font-weight: 800; }
+.art-emoji { text-align: center; font-size: clamp(100px, 16vw, 180px); line-height: 1.4; }
+.art-bottom { background: white; border-radius: 12px; padding: 15px 18px; }
+.art-bottom strong { font-size: 20px; }
+.art-bottom p { font-size: 13px; margin: 0; }
+
+.trust { background: var(--green); color: white; padding: 22px 0; }
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center; }
+.trust strong { display: block; color: var(--lime); }
+.trust small { color: #d2ded5; }
+
+.section { padding: 75px 0; }
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.section-head h2 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -1px; }
+.section-head p { color: var(--gray); font-size: 14px; }
+.search-row { display: flex; gap: 10px; margin-bottom: 22px; }
+.search-row input {
+  min-width: 0;
+  flex: 1;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--green);
+}
+.filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 28px; }
+.filter {
+  border: 1px solid var(--border);
+  padding: 9px 14px;
+  background: white;
+  border-radius: 30px;
+  font-size: 13px;
+}
+.filter.active { background: var(--green); color: white; border-color: var(--green); }
+.products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.product {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: .2s;
+}
+.product:hover { transform: translateY(-4px); box-shadow: 0 12px 30px #102d2410; }
+.product-art {
+  min-height: 185px;
+  display: grid;
+  place-items: center;
+  font-size: 76px;
+  background: #edf1e7;
+}
+.product-info { padding: 17px; }
+.product-category { color: var(--gray); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.product h3 { font-size: 17px; margin: 5px 0; }
+.product-desc { font-size: 12px; color: var(--gray); min-height: 38px; }
+.product-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 15px; }
+.price { font-size: 19px; font-weight: 900; }
+.add-btn { padding: 9px 12px; border-radius: 6px; background: var(--lime); border: 0; font-weight: 800; }
+.empty { padding: 30px; text-align: center; color: var(--gray); grid-column: 1 / -1; }
+
+.booking { background: #e8eddf; }
+.booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; align-items: center; }
+.booking h2 { font-size: clamp(30px, 4vw, 45px); line-height: 1.15; margin: 15px 0; }
+.booking-copy p { color: var(--gray); margin-bottom: 20px; }
+.booking-form, .checkout-form {
+  padding: 25px;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+.booking-form h3, .checkout-form h3 { font-size: 23px; margin-bottom: 15px; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dce2d9;
+  border-radius: 7px;
+  background: white;
+  color: var(--green);
+}
+.field textarea { resize: vertical; min-height: 80px; }
+.full { width: 100%; }
+
+.cart-section { background: white; }
+.cart-layout { display: grid; grid-template-columns: 1.2fr .8fr; gap: 30px; }
+.cart-items { display: grid; gap: 12px; align-content: start; }
+.cart-item {
+  display: flex; align-items: center; gap: 15px;
+  padding: 15px; border: 1px solid var(--border); border-radius: 10px;
+}
+.cart-emoji { font-size: 38px; }
+.cart-item-info { flex: 1; min-width: 0; }
+.cart-item-info h4 { overflow-wrap: anywhere; }
+.cart-item-info p { color: var(--gray); font-size: 13px; }
+.qty { display: flex; align-items: center; gap: 9px; margin-top: 5px; }
+.qty button { width: 27px; height: 27px; border: 1px solid var(--border); background: white; border-radius: 5px; }
+.remove { border: 0; background: transparent; color: #b34a3e; font-size: 12px; margin-top: 4px; }
+.summary { border-radius: 12px; background: var(--cream); padding: 25px; align-self: start; }
+.summary h3 { margin-bottom: 15px; }
+.sum-line { display: flex; justify-content: space-between; gap: 10px; margin: 12px 0; font-size: 14px; }
+.sum-total { border-top: 1px solid #dce2d9; padding-top: 15px; font-weight: 900; font-size: 19px; }
+.summary .btn { width: 100%; margin-top: 12px; }
+
+footer { padding: 35px 0; background: var(--green); color: white; }
+.footer-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer p { color: #d2ded5; font-size: 13px; }
+
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--green); color: white; padding: 13px 20px;
+  border-radius: 8px; z-index: 50; display: none; max-width: 90%;
+}
+.toast.show { display: block; }
+
+@media(max-width: 900px) {
+  .products { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid, .booking-grid { grid-template-columns: 1fr; }
+  .hero-art { min-height: 300px; }
+  .cart-layout { grid-template-columns: 1fr; }
+}
+@media(max-width: 650px) {
+  .nav { flex-wrap: wrap; padding: 12px 0; }
+  .menu-btn { display: inline-flex; }
+  .navlinks {
+    display: none; flex-direction: column; align-items: stretch;
+    width: 100%; gap: 0; padding-bottom: 10px;
+  }
+  .navlinks.open { display: flex; }
+  .navlinks a { display: block; padding: 10px; }
+  .nav-actions { margin-left: auto; }
+  .hero { padding-top: 40px; }
+  .hero h1 { letter-spacing: -2px; }
+  .section { padding: 50px 0; }
+  .section-head { align-items: start; flex-direction: column; }
+  .trust-grid { grid-template-columns: 1fr; gap: 14px; }
+  .products { gap: 12px; }
+  .product-art { min-height: 140px; font-size: 55px; }
+  .product-info { padding: 12px; }
+  .product h3 { font-size: 15px; }
+  .product-bottom { align-items: start; flex-direction: column; }
+  .product-bottom .add-btn { width: 100%; }
+  .booking-form, .checkout-form { padding: 18px; }
+  .cart-item { gap: 9px; padding: 10px; }
+  .cart-emoji { font-size: 29px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">Shop<span>Ease.</span></a>
+
+    <nav class="navlinks" id="navlinks">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#booking">Book a Service</a>
+      <a href="#cart">Cart</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="btn cart-btn" href="#cart">🛒 <span id="cartCount">0</span></a>
+      <button class="btn btn-dark menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="pill">YOUR EVERYDAY ONLINE STORE</span>
+      <h1>Good things.<br>Great <span>prices.</span></h1>
+      <p>
+        Discover useful products, shop your favorites, and book
+        services in one convenient place.
+      </p>
+      <div class="hero-buttons">
+        <a class="btn btn-dark" href="#shop">Explore Products →</a>
+        <a class="btn btn-light" href="#booking">Book a Service</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-top"><span>SHOP SMART</span><span>✳</span></div>
+      <div class="art-emoji" aria-label="Shopping bags">🛍️</div>
+      <div class="art-bottom">
+        <strong>Your next favorite is here.</strong>
+        <p>Browse our sample collection below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container trust-grid">
+    <div><strong>Easy Shopping</strong><small>Browse and add to cart</small></div>
+    <div><strong>Simple Booking</strong><small>Choose a date and time</small></div>
+    <div><strong>Mobile Friendly</strong><small>Shop on any device</small></div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="pill">THE COLLECTION</span>
+        <h2>Shop our products</h2>
+        <p>Choose a product and add it to your shopping cart.</p>
+      </div>
+    </div>
+
+    <div class="search-row">
+      <input id="search" type="search" placeholder="Search products..." aria-label="Search products">
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter active" data-category="All">All Products</button>
+      <button class="filter" data-category="Stationery">Stationery</button>
+      <button class="filter" data-category="Bags">Bags</button>
+      <button class="filter" data-category="Accessories">Accessories</button>
+    </div>
+
+    <div class="products" id="products"></div>
+  </div>
+</section>
+
+<section class="section booking" id="booking">
+  <div class="container booking-grid">
+    <div class="booking-copy">
+      <span class="pill">ONLINE APPOINTMENTS</span>
+      <h2>Book your next service.</h2>
+      <p>
+        Need an appointment? Select a service, date, and time.
+        This demo will prepare your booking request for review.
+      </p>
+      <p>✓ Simple booking form<br>✓ Select your preferred time<br>✓ Review your request before sending</p>
+    </div>
+
+    <form class="booking-form" id="bookingForm">
+      <h3>Book an appointment</h3>
+      <div class="field">
+        <label for="bookingName">Full name</label>
+        <input id="bookingName" required maxlength="100" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="bookingEmail">Email address</label>
+        <input id="bookingEmail" type="email" required maxlength="150" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="service">Select service</label>
+        <select id="service" required>
+          <option value="">Choose a service</option>
+          <option>Product Consultation</option>
+          <option>Shopping Assistance</option>
+          <option>General Appointment</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bookingDate">Date</label>
+        <input id="bookingDate" type="date" required>
+      </div>
+      <div class="field">
+        <label for="bookingTime">Preferred time</label>
+        <select id="bookingTime" required>
+          <option value="">Choose a time</option>
+          <option>09:00 AM</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>12:00 PM</option>
+          <option>02:00 PM</option>
+          <option>03:00 PM</option>
+          <option>04:00 PM</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bookingNotes">Additional notes (optional)</label>
+        <textarea id="bookingNotes" maxlength="1000" placeholder="Tell us what you need"></textarea>
+      </div>
+      <button class="btn btn-dark full" type="submit">Prepare Booking Request →</button>
+    </form>
+  </div>
+</section>
+
+<section class="section cart-section" id="cart">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="pill">YOUR SELECTION</span>
+        <h2>Shopping cart</h2>
+        <p>Review your items before proceeding to checkout.</p>
+      </div>
+    </div>
+
+    <div class="cart-layout">
+      <div class="cart-items" id="cartItems"></div>
+
+      <div class="summary">
+        <h3>Order summary</h3>
+        <div class="sum-line"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+        <div class="sum-line"><span>Shipping</span><strong id="shipping">₹0</strong></div>
+        <div class="sum-line sum-total"><span>Total</span><strong id="total">₹0</strong></div>
+        <p style="font-size:12px;color:#6e7771;margin-top:12px">
+          Sample prices only. Shipping and taxes may vary.
+        </p>
+        <button class="btn btn-lime" id="checkoutBtn">Proceed to Checkout →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="checkout" style="display:none">
+  <div class="container" style="max-width:700px">
+    <form class="checkout-form" id="checkoutForm">
+      <span class="pill">CHECKOUT</span>
+      <h3 style="margin-top:12px">Customer and delivery details</h3>
+      <p style="color:#6e7771;font-size:14px;margin-bottom:20px">
+        Submit a demo order request. No payment will be taken.
+      </p>
+      <div class="field">
+        <label for="customerName">Full name</label>
+        <input id="customerName" required maxlength="100">
+      </div>
+      <div class="field">
+        <label for="customerEmail">Email</label>
+        <input id="customerEmail" type="email" required maxlength="150">
+      </div>
+      <div class="field">
+        <label for="customerPhone">Phone number</label>
+        <input id="customerPhone" type="tel" required maxlength="20" placeholder="Your contact number">
+      </div>
+      <div class="field">
+        <label for="customerAddress">Delivery address</label>
+        <textarea id="customerAddress" required maxlength="1000" placeholder="Full delivery address"></textarea>
+      </div>
+      <div class="field">
+        <label for="payment">Preferred payment method</label>
+        <select id="payment" required>
+          <option value="">Select method</option>
+          <option value="Cash on Delivery">Cash on Delivery (request only)</option>
+          <option value="UPI">UPI (not connected)</option>
+          <option value="Online Payment">Online Payment (not connected)</option>
+        </select>
+      </div>
+      <div id="checkoutTotal" style="font-weight:900;font-size:20px;margin:18px 0"></div>
+      <button class="btn btn-dark full" type="submit">Submit Demo Order →</button>
+      <button class="btn btn-light full" type="button" id="cancelCheckout" style="margin-top:10px">Cancel</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div>
+      <a href="#home" class="logo" style="color:white">Shop<span>Ease.</span></a>
+      <p>One place for shopping and bookings.</p>
+    </div>
+    <div>
+      <p>Demo storefront — customize with your business details.</p>
+      <p>© <span id="year"></span> ShopEase</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+// EDIT THESE SAMPLE PRODUCTS FOR YOUR BUSINESS.
+const products = [
+  {id:1, name:"Classic Notebook", category:"Stationery", price:120, emoji:"📓", desc:"Everyday notebook for notes and ideas."},
+  {id:2, name:"Premium Backpack", category:"Bags", price:899, emoji:"🎒", desc:"A versatile bag for daily essentials."},
+  {id:3, name:"Pen Set", category:"Stationery", price:149, emoji:"🖊️", desc:"A handy set for school or office."},
+  {id:4, name:"Desk Organizer", category:"Accessories", price:349, emoji:"🗂️", desc:"Keep your workspace neat and tidy."},
+  {id:5, name:"Color Pencil Set", category:"Stationery", price:199, emoji:"🖍️", desc:"Add color to your creative projects."},
+  {id:6, name:"Travel Backpack", category:"Bags", price:1299, emoji:"🧳", desc:"Room for essentials on the go."},
+  {id:7, name:"Water Bottle", category:"Accessories", price:249, emoji:"🧴", desc:"A practical everyday companion."},
+  {id:8, name:"Study Lamp", category:"Accessories", price:599, emoji:"💡", desc:"A simple addition to your study desk."}
+];
+
+let activeCategory = "All";
+let cart = {};
+let toastTimer;
+
+const money = n => "₹" + n.toLocaleString("en-IN");
+const $ = id => document.getElementById(id);
+
+function showToast(message) {
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("show"), 2800);
+}
+
+function renderProducts() {
+  const query = $("search").value.trim().toLowerCase();
+  const filtered = products.filter(p =>
+    (activeCategory === "All" || p.category === activeCategory) &&
+    (p.name.toLowerCase().includes(query) ||
+     p.category.toLowerCase().includes(query) ||
+     p.desc.toLowerCase().includes(query))
+  );
+
+  $("products").innerHTML = "";
+
+  if (!filtered.length) {
+    $("products").innerHTML = '<p class="empty">No matching products found.</p>';
+    return;
+  }
+
+  filtered.forEach(p => {
+    const article = document.createElement("article");
+    article.className = "product";
+
+    const art = document.createElement("div");
+    art.className = "product-art";
+    art.textContent = p.emoji;
+    art.setAttribute("aria-hidden", "true");
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const category = document.createElement("div");
+    category.className = "product-category";
+    category.textContent = p.category;
+
+    const title = document.createElement("h3");
+    title.textContent = p.name;
+
+    const desc = document.createElement("p");
+    desc.className = "product-desc";
+    desc.textContent = p.desc;
+
+    const bottom = document.createElement("div");
+    bottom.className = "product-bottom";
+
+    const price = document.createElement("span");
+    price.className = "price";
+    price.textContent = money(p.price);
+
+    const add = document.createElement("button");
+    add.className = "add-btn";
+    add.textContent = "+ Add";
+    add.addEventListener("click", () => addToCart(p.id));
+
+    bottom.append(price, add);
+    info.append(category, title, desc, bottom);
+    article.append(art, info);
+    $("products").append(article);
+  });
+}
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  renderCart();
+  showToast("Product added to your cart.");
+}
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+
+function getSubtotal() {
+  return products.reduce((sum, p) => sum + p.price * (cart[p.id] || 0), 0);
+}
+
+function getCount() {
+  return Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+}
+
+function renderCart() {
+  const holder = $("cartItems");
+  holder.replaceChildren();
+
+  const chosen = products.filter(p => cart[p.id]);
+
+  if (!chosen.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Your cart is empty. Explore the shop to add products.";
+    holder.append(empty);
+  }
+
+  chosen.forEach(p => {
+    const item = document.createElement("div");
+    item.className = "cart-item";
+
+    const emoji = document.createElement("span");
+    emoji.className = "cart-emoji";
+    emoji.textContent = p.emoji;
+
+    const info = document.createElement("div");
+    info.className = "cart-item-info";
+
+    const title = document.createElement("h4");
+    title.textContent = p.name;
+
+    const price = document.createElement("p");
+    price.textContent = money(p.price) + " each";
+
+    const qty = document.createElement("div");
+    qty.className = "qty";
+
+    const minus = document.createElement("button");
+    minus.textContent = "−";
+    minus.setAttribute("aria-label", "Decrease quantity");
+    minus.addEventListener("click", () => changeQty(p.id, -1));
+
+    const number = document.createElement("span");
+    number.textContent = cart[p.id];
+
+    const plus = document.createElement("button");
+    plus.textContent = "+";
+    plus.setAttribute("aria-label", "Increase quantity");
+    plus.addEventListener("click", () => changeQty(p.id, 1));
+
+    qty.append(minus, number, plus);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.textContent = "Remove";
+    remove.addEventListener("click", () => {
+      delete cart[p.id];
+      renderCart();
+    });
+
+    info.append(title, price, qty, remove);
+
+    const lineTotal = document.createElement("strong");
+    lineTotal.textContent = money(p.price * cart[p.id]);
+
+    item.append(emoji, info, lineTotal);
+    holder.append(item);
+  });
+
+  const subtotal = getSubtotal();
+  const shipping = subtotal === 0 || subtotal >= 999 ? 0 : 60;
+
+  $("cartCount").textContent = getCount();
+  $("subtotal").textContent = money(subtotal);
+  $("shipping").textContent = money(shipping);
+  $("total").textContent = money(subtotal + shipping);
+  $("checkoutTotal").textContent = "Order total: " + money(subtotal + shipping);
+}
+
+$("filters").addEventListener("click", event => {
+  const button = event.target.closest("button[data-category]");
+  if (!button) return;
+
+  activeCategory = button.dataset.category;
+  $("filters").querySelectorAll("button").forEach(b =>
+    b.classList.toggle("active", b === button)
+  );
+  renderProducts();
+});
+
+$("search").addEventListener("input", renderProducts);
+
+$("menuBtn").addEventListener("click", () => {
+  $("navlinks").classList.toggle("open");
+});
+
+$("navlinks").querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => $("navlinks").classList.remove("open"));
+});
+
+const today = new Date();
+const localDate = [
+  today.getFullYear(),
+  String(today.getMonth() + 1).padStart(2, "0"),
+  String(today.getDate()).padStart(2, "0")
+].join("-");
+$("bookingDate").min = localDate;
+
+$("bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const date = $("bookingDate").value;
+  if (date < $("bookingDate").min) {
+    showToast("Please select today or a future date.");
+    return;
+  }
+
+  const request = {
+    name: $("bookingName").value.trim(),
+    email: $("bookingEmail").value.trim(),
+    service: $("service").value,
+    date,
+    time: $("bookingTime").value,
+    notes: $("bookingNotes").value.trim()
+  };
+
+  // Demo only: no server receives or stores this request.
+  const text = [
+    "BOOKING REQUEST",
+    "Name: " + request.name,
+    "Email: " + request.email,
+    "Service: " + request.service,
+    "Date: " + request.date,
+    "Time: " + request.time,
+    "Notes: " + (request.notes || "None")
+  ].join("\n");
+
+  const blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "booking-request.txt";
+  link.click();
+  URL.revokeObjectURL(url);
+
+  showToast("Booking request file prepared. This is not a confirmed appointment.");
+  $("bookingForm").reset();
+  $("bookingDate").min = localDate;
+});
+
+$("checkoutBtn").addEventListener("click", () => {
+  if (!getCount()) {
+    showToast("Please add a product to your cart first.");
+    return;
+  }
+  $("checkout").style.display = "block";
+  $("checkoutTotal").textContent = "Order total: " +
+    money(getSubtotal() + (getSubtotal() >= 999 ? 0 : 60));
+  $("checkout").scrollIntoView({behavior: "smooth"});
+});
+
+$("cancelCheckout").addEventListener("click", () => {
+  $("checkout").style.display = "none";
+  $("cart").scrollIntoView({behavior: "smooth"});
+});
+
+$("checkoutForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (!getCount()) {
+    showToast("Your cart is empty.");
+    $("checkout").style.display = "none";
+    return;
+  }
+
+  const order = {
+    reference: "DEMO-" + Date.now().toString().slice(-8),
+    customer: $("customerName").value.trim(),
+    email: $("customerEmail").value.trim(),
+    phone: $("customerPhone").value.trim(),
+    address: $("customerAddress").value.trim(),
+    paymentPreference: $("payment").value,
+    items: products.filter(p => cart[p.id]).map(p => ({
+      name: p.name,
+      quantity: cart[p.id],
+      unitPrice: p.price
+    })),
+    total: getSubtotal() + (getSubtotal() >= 999 ? 0 : 60),
+    status: "Demo request only — not a confirmed order"
+  };
+
+  // Download a copy of the request for demonstration.
+  // A real store must validate and save orders on a secure server.
+  const blob = new Blob(
+    [JSON.stringify(order, null, 2)],
+    {type: "application/json"}
+  );
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = order.reference + ".json";
+  link.click();
+  URL.revokeObjectURL(url);
+
+  showToast("Demo order file prepared. No payment was made.");
+  cart = {};
+  renderCart();
+  $("checkoutForm").reset();
+  $("checkout").style.display = "none";
+  $("cart").scrollIntoView({behavior: "smooth"});
+});
+
+$("year").textContent = new Date().getFullYear();
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
